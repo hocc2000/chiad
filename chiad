@@ -1,0 +1,27 @@
+#! /bin/bash
+
+if [ "$1" = "start" ] || [ "$1" = "stop" ]
+then
+    cd /home/mp/chia-blockchain/; . ./activate; chia $1 farmer
+
+elif [ "$1" = "restart" ]
+then
+    cd /home/mp/chia-blockchain/; . ./activate; chia start farmer -r
+elif [ "$1" = "summary" ]
+then
+    cd ~/chia-blockchain; . ./activate; chia farm $1; deactivate; cd
+elif [ "$1" = "status" ]
+then
+    cd ~/chia-blockchain; . ./activate; chia show -s; echo; chia show -c; deactivate; cd
+elif [ "$1" = "version" ]
+then
+    cd ~/chia-blockchain; . ./activate; chia version; deactivate; cd
+elif [ "$1" = "disk" ]
+then
+    df -h
+elif [ "$1" = "log" ]
+then
+    cat ~/.chia/mainnet/log/debug.log | grep "WAR"; cat ~/.chia/mainnet/log/debug.log | grep "ERR"; cat ~/.chia/mainnet/log/debug.log | grep "plots were"
+else
+    echo "start stop restart summary status version disk log"
+fi
